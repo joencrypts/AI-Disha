@@ -3,8 +3,8 @@ services:
     name: wellora-ai-healthcare
     env: python
     plan: free
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn app_simple:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wellora-ai-healthcare"
+version = "1.0.0"
+description = "AI-Powered Healthcare Risk Assessment Platform"
+authors = [{name = "Wellora Team"}]
+requires-python = ">=3.11"
+dependencies = [
+    "Flask",
+    "Werkzeug",
+    "pandas",
+    "numpy", 
+    "scikit-learn",
+    "xgboost",
+    "lightgbm",
+    "joblib",
+    "google-generativeai",
+    "requests",
+    "python-dotenv",
+    "gunicorn"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
