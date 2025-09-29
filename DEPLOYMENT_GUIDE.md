@@ -42,13 +42,15 @@ services:
     name: wellora-ai-healthcare
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: GEMINI_API_KEY
         value: AIzaSyCCy99Oh-TrbsYlBlW0HGfesESMB7eS50k
+      - key: FLASK_ENV
+        value: production
     healthCheckPath: /health
 ```
 
@@ -155,6 +157,27 @@ Set these environment variables in Render:
 2. **App Crashes**: Check logs in Render dashboard
 3. **API Errors**: Verify environment variables are set correctly
 4. **Static Files**: Ensure all assets are in the `static/` folder
+5. **Python Version Issues**: Ensure Python 3.11.0 is specified
+6. **Dependency Conflicts**: Use the updated `requirements.txt` with compatible versions
+
+### Build Error Solutions:
+
+#### Issue: "Cannot import 'setuptools.build_meta'"
+**Solution**: The `requirements.txt` has been updated with compatible versions and includes `setuptools` upgrade.
+
+#### Issue: "Python version mismatch"
+**Solution**: 
+- Use `runtime.txt` with `python-3.11.0`
+- Set `PYTHON_VERSION=3.11.0` in environment variables
+
+#### Issue: "Dependency resolution failed"
+**Solution**: The updated `requirements.txt` uses specific versions that are known to work together.
+
+### Manual Build Command (if needed):
+```bash
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
 
 ### Debug Commands:
 ```bash
@@ -163,6 +186,9 @@ render logs --service wellora-ai-healthcare
 
 # Check environment variables
 render env --service wellora-ai-healthcare
+
+# Test health endpoint
+curl https://your-app-url.onrender.com/health
 ```
 
 ---
