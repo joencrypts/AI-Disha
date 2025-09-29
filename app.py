@@ -849,6 +849,16 @@ def generate_report():
 def not_found(error):
     return render_template('404.html'), 404
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint for Render deployment"""
+    return jsonify({
+        'status': 'healthy',
+        'service': 'Wellora AI Healthcare Platform',
+        'version': '1.0.0',
+        'timestamp': __import__('datetime').datetime.now().isoformat()
+    })
+
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('500.html'), 500

@@ -11,3 +11,4 @@ services:
       - key: GEMINI_API_KEY
         value: AIzaSyCCy99Oh-TrbsYlBlW0HGfesESMB7eS50k
     healthCheckPath: /health
+

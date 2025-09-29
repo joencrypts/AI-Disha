@@ -59,18 +59,18 @@ A comprehensive AI-powered healthcare risk assessment platform that combines mac
    ```
 
 2. **Create virtual environment**
-   ```bash
+```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\\Scripts\\activate
-   ```
+```
 
 3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 
 4. **Run the application**
-   ```bash
+```bash
    python app.py
    ```
 
