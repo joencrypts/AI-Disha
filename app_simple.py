@@ -192,11 +192,40 @@ def generate_report():
                 except ValueError:
                     patient_data[key] = value
         
-        # Perform assessment first
+        # Perform assessment first (simplified version)
+        risk_score = 0
+        risk_factors = []
+        
+        if condition == 'diabetes':
+            if patient_data.get('age', 0) > 60:
+                risk_score += 20
+                risk_factors.append("Advanced age")
+            if patient_data.get('bmi', 0) > 30:
+                risk_score += 25
+                risk_factors.append("High BMI")
+            if patient_data.get('hypertension', 0) == 1:
+                risk_score += 15
+                risk_factors.append("Hypertension")
+            if patient_data.get('heart_disease', 0) == 1:
+                risk_score += 20
+                risk_factors.append("Heart disease history")
+            if patient_data.get('HbA1c_level', 0) > 6.5:
+                risk_score += 30
+                risk_factors.append("Elevated HbA1c")
+        
+        # Determine risk level
+        if risk_score >= 70:
+            risk_level = 'HIGH'
+        elif risk_score >= 40:
+            risk_level = 'MODERATE'
+        else:
+            risk_level = 'LOW'
+        
         assessment_result = {
-            'risk_level': 'MODERATE',
-            'risk_probability': 0.6,
-            'confidence_score': 0.8
+            'risk_level': risk_level,
+            'risk_probability': min(risk_score / 100, 0.95),
+            'confidence_score': 0.8,
+            'risk_factors': risk_factors
         }
         
         # Generate AI report

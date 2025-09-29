@@ -1041,25 +1041,34 @@ function displayResults(data) {
                     <span class="metric-label">Confidence Score</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-value">${data.matched_rules_count}</span>
-                    <span class="metric-label">Clinical Rules</span>
+                    <span class="metric-value">${data.risk_factors ? data.risk_factors.length : 0}</span>
+                    <span class="metric-label">Risk Factors</span>
                 </div>
             </div>
             <div class="result-details">
                 <div class="risk-factors">
-                    <h4><i class="fa fa-exclamation-circle"></i> Matched Clinical Rules:</h4>
-                    ${data.matched_rules.map(rule => `
+                    <h4><i class="fa fa-exclamation-circle"></i> Risk Factors Identified:</h4>
+                    ${data.risk_factors ? data.risk_factors.map(factor => `
                         <div class="risk-factor">
-                            <strong>${rule.name}</strong><br>
-                            ${rule.explanation}
+                            <strong>${factor}</strong>
                         </div>
-                    `).join('')}
+                    `).join('') : '<div class="risk-factor">No significant risk factors identified</div>'}
                 </div>
                 <div class="recommendations">
                     <h4><i class="fa fa-clipboard-list"></i> Recommended Actions:</h4>
-                    ${data.recommended_actions.map(action => `
-                        <div class="recommendation">${action}</div>
-                    `).join('')}
+                    ${data.risk_level === 'HIGH' ? `
+                        <div class="recommendation">Schedule immediate consultation with healthcare provider</div>
+                        <div class="recommendation">Begin intensive monitoring and lifestyle modifications</div>
+                        <div class="recommendation">Consider immediate medical intervention</div>
+                    ` : data.risk_level === 'MODERATE' ? `
+                        <div class="recommendation">Schedule appointment with primary care physician within 1 week</div>
+                        <div class="recommendation">Begin regular monitoring and lifestyle modifications</div>
+                        <div class="recommendation">Consider medication evaluation</div>
+                    ` : `
+                        <div class="recommendation">Continue regular monitoring</div>
+                        <div class="recommendation">Maintain healthy lifestyle</div>
+                        <div class="recommendation">Annual screening recommended</div>
+                    `}
                 </div>
                 <div class="explanation">
                     <h4><i class="fa fa-info-circle"></i> AI Analysis Summary:</h4>
