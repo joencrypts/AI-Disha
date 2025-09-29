@@ -84,8 +84,11 @@ def assess_risk():
     """Simplified risk assessment endpoint"""
     try:
         # Get form data
-        condition = request.form.get('condition')
+        condition = request.form.get('condition', 'diabetes')  # Default to diabetes
         patient_data = {}
+        
+        print(f"Received condition: {condition}")
+        print(f"Form data: {dict(request.form)}")
         
         # Collect all form data
         for key, value in request.form.items():
@@ -99,10 +102,13 @@ def assess_risk():
                 except ValueError:
                     patient_data[key] = value
         
+        print(f"Patient data: {patient_data}")
+        
         # Simple risk assessment logic
         risk_score = 0
         risk_factors = []
         
+        # Handle different conditions
         if condition == 'diabetes':
             if patient_data.get('age', 0) > 60:
                 risk_score += 20
@@ -119,6 +125,41 @@ def assess_risk():
             if patient_data.get('HbA1c_level', 0) > 6.5:
                 risk_score += 30
                 risk_factors.append("Elevated HbA1c")
+        elif condition == 'heart':
+            if patient_data.get('age', 0) > 65:
+                risk_score += 20
+                risk_factors.append("Advanced age")
+            if patient_data.get('chest_pain_type', 0) > 2:
+                risk_score += 25
+                risk_factors.append("Chest pain symptoms")
+            if patient_data.get('cholesterol', 0) > 240:
+                risk_score += 20
+                risk_factors.append("High cholesterol")
+        elif condition == 'kidney':
+            if patient_data.get('age', 0) > 60:
+                risk_score += 15
+                risk_factors.append("Advanced age")
+            if patient_data.get('bp', 0) > 140:
+                risk_score += 25
+                risk_factors.append("High blood pressure")
+            if patient_data.get('sc', 0) > 1.4:
+                risk_score += 30
+                risk_factors.append("Elevated serum creatinine")
+        elif condition == 'liver':
+            if patient_data.get('age', 0) > 50:
+                risk_score += 15
+                risk_factors.append("Advanced age")
+            if patient_data.get('total_bilirubin', 0) > 1.2:
+                risk_score += 25
+                risk_factors.append("Elevated bilirubin")
+            if patient_data.get('alt', 0) > 40:
+                risk_score += 20
+                risk_factors.append("Elevated ALT")
+        
+        # Ensure minimum risk score
+        if risk_score == 0:
+            risk_score = 10  # Minimum risk
+            risk_factors.append("Baseline assessment")
         
         # Determine risk level
         if risk_score >= 70:
@@ -137,12 +178,15 @@ def assess_risk():
             'explanation': f"Based on the assessment, the patient shows {risk_level.lower()} risk for {condition}. Key factors: {', '.join(risk_factors) if risk_factors else 'No significant risk factors identified'}."
         }
         
+        print(f"Assessment result: {result}")
+        
         # Store assessment
         store_assessment_result(condition, result)
         
         return jsonify(result)
         
     except Exception as e:
+        print(f"Error in assess_risk: {e}")
         return jsonify({'error': str(e)}), 500
 
 def store_assessment_result(condition, result):
@@ -196,6 +240,7 @@ def generate_report():
         risk_score = 0
         risk_factors = []
         
+        # Handle different conditions
         if condition == 'diabetes':
             if patient_data.get('age', 0) > 60:
                 risk_score += 20
@@ -212,6 +257,41 @@ def generate_report():
             if patient_data.get('HbA1c_level', 0) > 6.5:
                 risk_score += 30
                 risk_factors.append("Elevated HbA1c")
+        elif condition == 'heart':
+            if patient_data.get('age', 0) > 65:
+                risk_score += 20
+                risk_factors.append("Advanced age")
+            if patient_data.get('chest_pain_type', 0) > 2:
+                risk_score += 25
+                risk_factors.append("Chest pain symptoms")
+            if patient_data.get('cholesterol', 0) > 240:
+                risk_score += 20
+                risk_factors.append("High cholesterol")
+        elif condition == 'kidney':
+            if patient_data.get('age', 0) > 60:
+                risk_score += 15
+                risk_factors.append("Advanced age")
+            if patient_data.get('bp', 0) > 140:
+                risk_score += 25
+                risk_factors.append("High blood pressure")
+            if patient_data.get('sc', 0) > 1.4:
+                risk_score += 30
+                risk_factors.append("Elevated serum creatinine")
+        elif condition == 'liver':
+            if patient_data.get('age', 0) > 50:
+                risk_score += 15
+                risk_factors.append("Advanced age")
+            if patient_data.get('total_bilirubin', 0) > 1.2:
+                risk_score += 25
+                risk_factors.append("Elevated bilirubin")
+            if patient_data.get('alt', 0) > 40:
+                risk_score += 20
+                risk_factors.append("Elevated ALT")
+        
+        # Ensure minimum risk score
+        if risk_score == 0:
+            risk_score = 10  # Minimum risk
+            risk_factors.append("Baseline assessment")
         
         # Determine risk level
         if risk_score >= 70:
