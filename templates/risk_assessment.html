@@ -407,10 +407,7 @@
                             
                             <div class="form-group text-center">
                                 <button type="submit" class="theme-btn">
-                                    <i class="fa fa-search"></i> Assess Patient Risk
-                                </button>
-                                <button type="button" class="theme-btn btn-success ml-3" onclick="generateReport()">
-                                    <i class="fa fa-file-text"></i> Generate AI Report
+                                    <i class="fa fa-search"></i> Assess Patient Risk & Generate AI Report
                                 </button>
                             </div>
                         </form>
@@ -890,74 +887,6 @@ document.getElementById('bulk-form').addEventListener('submit', function(e) {
     submitBulkAssessment();
 });
 
-function generateReport() {
-    const form = document.getElementById('manual-form');
-    const formData = new FormData(form);
-    
-    // Show loading
-    showLoading();
-    
-    fetch('{{ url_for("generate_report") }}', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        hideLoading();
-        if (data.success) {
-            displayReport(data.report, data.assessment);
-        } else {
-            alert('Error generating report: ' + data.error);
-        }
-    })
-    .catch(error => {
-        hideLoading();
-        console.error('Error:', error);
-        alert('Error generating report: ' + error.message);
-    });
-}
-
-function displayReport(report, assessment) {
-    const resultsContent = document.getElementById('results-content');
-    const resultsSection = document.getElementById('results-section');
-    
-    let riskClass = 'risk-low';
-    if (assessment.risk_level === 'HIGH') riskClass = 'risk-high';
-    else if (assessment.risk_level === 'MODERATE') riskClass = 'risk-moderate';
-    
-    resultsContent.innerHTML = `
-        <div class="result-card ${riskClass}">
-            <div class="result-header">
-                <h2><i class="fa fa-file-text"></i> AI-GENERATED MEDICAL REPORT</h2>
-            </div>
-            <div class="result-metrics">
-                <div class="metric">
-                    <span class="metric-value">${(assessment.risk_probability * 100).toFixed(1)}%</span>
-                    <span class="metric-label">Risk Probability</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-value">${(assessment.confidence_score * 100).toFixed(1)}%</span>
-                    <span class="metric-label">Confidence Score</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-value">${assessment.risk_level}</span>
-                    <span class="metric-label">Risk Level</span>
-                </div>
-            </div>
-            <div class="result-details">
-                <div class="ai-report">
-                    <h4><i class="fa fa-robot"></i> AI Medical Report:</h4>
-                    <div class="report-content">
-                        <pre>${report}</pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    resultsSection.style.display = 'block';
-    resultsSection.scrollIntoView({ behavior: 'smooth' });
-}
 
 function submitAssessment(type) {
     const form = document.getElementById(type + '-form');
@@ -965,19 +894,29 @@ function submitAssessment(type) {
     
     showLoading();
     
+    // First, assess the risk
     fetch('{{ url_for("assess_risk") }}', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
-    .then(data => {
-        hideLoading();
-        displayResults(data);
+    .then(assessmentData => {
+        // Then generate the AI report
+        return fetch('{{ url_for("generate_report") }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(reportData => {
+            hideLoading();
+            // Display both assessment and report
+            displayResults(assessmentData, reportData);
+        });
     })
     .catch(error => {
         hideLoading();
         console.error('Error:', error);
-        alert('Error assessing risk: ' + error.message);
+        alert('Error processing assessment: ' + error.message);
     });
 }
 
@@ -1018,37 +957,40 @@ function hideLoading() {
     }
 }
 
-function displayResults(data) {
+function displayResults(assessmentData, reportData) {
     const resultsContent = document.getElementById('results-content');
     const resultsSection = document.getElementById('results-section');
     
     let riskClass = 'risk-low';
-    if (data.risk_level === 'HIGH') riskClass = 'risk-high';
-    else if (data.risk_level === 'MODERATE') riskClass = 'risk-moderate';
+    if (assessmentData.risk_level === 'HIGH') riskClass = 'risk-high';
+    else if (assessmentData.risk_level === 'MODERATE') riskClass = 'risk-moderate';
+    
+    // Extract report content
+    const reportContent = reportData && reportData.report ? reportData.report : 'AI report generation failed. Please try again.';
     
     resultsContent.innerHTML = `
         <div class="result-card ${riskClass}">
             <div class="result-header">
-                <h2><i class="fa fa-exclamation-triangle"></i> ${data.risk_level} RISK</h2>
+                <h2><i class="fa fa-exclamation-triangle"></i> ${assessmentData.risk_level} RISK</h2>
             </div>
             <div class="result-metrics">
                 <div class="metric">
-                    <span class="metric-value">${(data.risk_probability * 100).toFixed(1)}%</span>
+                    <span class="metric-value">${(assessmentData.risk_probability * 100).toFixed(1)}%</span>
                     <span class="metric-label">Risk Probability</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-value">${(data.confidence_score * 100).toFixed(1)}%</span>
+                    <span class="metric-value">${(assessmentData.confidence_score * 100).toFixed(1)}%</span>
                     <span class="metric-label">Confidence Score</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-value">${data.risk_factors ? data.risk_factors.length : 0}</span>
+                    <span class="metric-value">${assessmentData.risk_factors ? assessmentData.risk_factors.length : 0}</span>
                     <span class="metric-label">Risk Factors</span>
                 </div>
             </div>
             <div class="result-details">
                 <div class="risk-factors">
                     <h4><i class="fa fa-exclamation-circle"></i> Risk Factors Identified:</h4>
-                    ${data.risk_factors ? data.risk_factors.map(factor => `
+                    ${assessmentData.risk_factors ? assessmentData.risk_factors.map(factor => `
                         <div class="risk-factor">
                             <strong>${factor}</strong>
                         </div>
@@ -1056,11 +998,11 @@ function displayResults(data) {
                 </div>
                 <div class="recommendations">
                     <h4><i class="fa fa-clipboard-list"></i> Recommended Actions:</h4>
-                    ${data.risk_level === 'HIGH' ? `
+                    ${assessmentData.risk_level === 'HIGH' ? `
                         <div class="recommendation">Schedule immediate consultation with healthcare provider</div>
                         <div class="recommendation">Begin intensive monitoring and lifestyle modifications</div>
                         <div class="recommendation">Consider immediate medical intervention</div>
-                    ` : data.risk_level === 'MODERATE' ? `
+                    ` : assessmentData.risk_level === 'MODERATE' ? `
                         <div class="recommendation">Schedule appointment with primary care physician within 1 week</div>
                         <div class="recommendation">Begin regular monitoring and lifestyle modifications</div>
                         <div class="recommendation">Consider medication evaluation</div>
@@ -1070,17 +1012,17 @@ function displayResults(data) {
                         <div class="recommendation">Annual screening recommended</div>
                     `}
                 </div>
-                <div class="explanation">
-                    <h4><i class="fa fa-info-circle"></i> AI Analysis Summary:</h4>
-                    <div class="explanation-content">
-                        <pre>${data.explanation}</pre>
+                <div class="ai-report">
+                    <h4><i class="fa fa-robot"></i> AI Medical Report:</h4>
+                    <div class="report-content">
+                        <pre>${reportContent}</pre>
                     </div>
                 </div>
-                ${data.ml_predictions ? `
+                ${assessmentData.ml_predictions ? `
                 <div class="ml-predictions">
                     <h4><i class="fa fa-brain"></i> AI Model Predictions:</h4>
                     <div class="model-predictions">
-                        ${Object.entries(data.ml_predictions).filter(([key]) => key !== 'ensemble').map(([model, pred]) => `
+                        ${Object.entries(assessmentData.ml_predictions).filter(([key]) => key !== 'ensemble').map(([model, pred]) => `
                             <div class="model-prediction">
                                 <strong>${model.replace('_', ' ').toUpperCase()}:</strong> 
                                 <span class="prediction-value">${(pred.probability * 100).toFixed(1)}%</span>
@@ -1088,7 +1030,7 @@ function displayResults(data) {
                         `).join('')}
                         <div class="model-prediction ensemble">
                             <strong>ENSEMBLE PREDICTION:</strong> 
-                            <span class="prediction-value ensemble-value">${(data.ml_predictions.ensemble.probability * 100).toFixed(1)}%</span>
+                            <span class="prediction-value ensemble-value">${(assessmentData.ml_predictions.ensemble.probability * 100).toFixed(1)}%</span>
                         </div>
                     </div>
                 </div>
