@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Wellora{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="ban-bread-crumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">About</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+    <div class="container-fluid">
+        <div class="map-outer">
+            <div class="google-map"
+                id="contact-google-map" 
+                data-map-lat="40.7128" 
+                data-map-lng="-74.0060" 
+                data-icon-path="{{ url_for('static', filename='assets/image/icons/map-marker.png') }}" 
+                data-map-title="Wellora Care Center" 
+                data-map-zoom="12" 
+                data-markers='{
+                "marker-1": [40.7128, -74.0060, "<h4>Wellora Care Center</h4><p>Medical Technology Hub, New York</p>"]
+                }'>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Address -->
+<div class="contact_address">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="contact_address_inner">
+                    <div class="contact_our_office">
+                        <h2>Our <span>Office</span></h2>
+                        <p>Wellora Care Center<br/> 
+                            Medical Innovation Hub, NY 10001</p>
+                    </div>
+                    <div class="contact_get_in_touch">
+                        <h2>Get in <span>Touch</span></h2>
+                        <div class="mail">
+                            <p>EMAIL<br/>
+                            <a href="mailto:contact@wellora.com">contact@wellora.com</a></p>
+                        </div>
+                        <div class="phone">
+                            <p>Phone number<br/>
+                                <a href="#" class="phne">(555) 123-4567</a> </p>
+                        </div>
+                    </div>
+                    <div class="contact_social_media">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                            <li><a href="#"><i class="fa fa-wifi"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="contact_pg_form">
+                    <form id="contact-form" method="post" action="{{ url_for('contact') }}" role="form">
+                        <div class="messages"></div>
+                        <div class="controls">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_name" type="text" name="name" placeholder="Name *" required="required" data-error="Name is required.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_email" type="email" name="email" placeholder="Email *" required="required" data-error="Email is required.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input id="form_phone" type="text" name="phone" placeholder="Phone *" required="required" data-error="Phone is required.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <select name="subject" class="form-control" required>
+                                            <option value="">Select Subject</option>
+                                            <option value="general">General Inquiry</option>
+                                            <option value="technical">Technical Support</option>
+                                            <option value="partnership">Partnership</option>
+                                            <option value="demo">Request Demo</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea id="form_message" name="message" placeholder="Message *" rows="6" required="required" data-error="Please, leave us a message."></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="submit" class="theme-btn btn-send" value="Send message">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Through -->
+<div class="contact_through type_one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="contact_through_inner">
+                    <span class="flaticon-phone-1 icon"></span>
+                    <p>Emergency Cases: <br/>
+                        (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="contact_through_inner">
+                    <span class="flaticon-placeholder icon"></span>
+                    <p>Wellora Care Center<br/>
+                        Medical Innovation Hub, NY</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="contact_through_inner">
+                    <span class="flaticon-envelope icon"></span>
+                    <p>Email Address<br/>
+                        contact@wellora.com</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="contact_through_inner">
+                    <span class="flaticon-calendar icon"></span>
+                    <p>Book Online<br/>
+                        Assessment Now</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="welcome_section hme-one" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix text-center">
+                    <h1>FREQUENTLY <span>ASKED QUESTIONS</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> How accurate is the AI risk assessment?</h4>
+                    <p>Our AI system achieves high accuracy rates across different medical conditions, typically above 95% for most assessments. The system combines multiple machine learning models with clinical knowledge to provide reliable risk assessments.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> What data is required for risk assessment?</h4>
+                    <p>The system requires basic patient information such as age, gender, BMI, blood pressure, and condition-specific biomarkers. The more data available, the more accurate the assessment becomes.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> Is patient data secure?</h4>
+                    <p>Absolutely. We follow strict data security protocols and comply with healthcare data protection regulations. All patient data is encrypted and processed securely.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> Can the system handle multiple patients at once?</h4>
+                    <p>Yes, our system supports bulk assessment of multiple patients simultaneously. This feature is particularly useful for healthcare facilities that need to process large numbers of patients efficiently.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> How do I get started with the system?</h4>
+                    <p>Simply visit our risk assessment page and enter patient data using any of our input methods: manual entry, JSON format, or bulk upload. The system will provide immediate risk assessment results.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fa fa-question-circle"></i> Do you offer training and support?</h4>
+                    <p>Yes, we provide comprehensive training and ongoing support to help healthcare professionals make the most of our AI system. Contact us to learn more about our training programs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.contact_address {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.contact_address_inner {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.contact_our_office h2,
+.contact_get_in_touch h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.contact_our_office p,
+.contact_get_in_touch p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.contact_get_in_touch .mail a,
+.contact_get_in_touch .phone a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact_social_media {
+    margin-top: 30px;
+}
+
+.contact_social_media ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.contact_social_media ul li a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.contact_social_media ul li a:hover {
+    background: #0056b3;
+    transform: translateY(-3px);
+}
+
+.contact_pg_form {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.theme-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.faq-item h4 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.faq-item h4 i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.faq-item p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.map-section {
+    height: 400px;
+    margin-bottom: 0;
+}
+
+.google-map {
+    height: 100%;
+    width: 100%;
+}
+</style>
+
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHzPSV2jshbjI8fqnC_C4L08ffnj5EN3A"></script>
+<script src="{{ url_for('static', filename='assets/js/gmaps.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/map-script.js') }}"></script>
+
+<script>
+// Contact form handling
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Show loading state
+    const submitBtn = this.querySelector('.btn-send');
+    const originalText = submitBtn.value;
+    submitBtn.value = 'Sending...';
+    submitBtn.disabled = true;
+    
+    fetch('{{ url_for("contact") }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        } else {
+            alert('Error sending message. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error sending message. Please try again.');
+    })
+    .finally(() => {
+        submitBtn.value = originalText;
+        submitBtn.disabled = false;
+    });
+});
+</script>
+{% endblock %}

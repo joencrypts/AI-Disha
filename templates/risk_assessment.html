@@ -1,0 +1,1330 @@
+{% extends "base.html" %}
+
+{% block title %}Risk Assessment - Wellora{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="ban-bread-crumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">AI Tools</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Risk Assessment</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Risk Assessment Section -->
+<section class="welcome_section hme-one" style="background:url({{ url_for('static', filename='assets/image/welcome-hme-1-bg.jpg') }})"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="welcme_inner text-center">
+                    <div class="heading clearfix">
+                        <h1>AI-POWERED <span>RISK ASSESSMENT</span></h1>
+                    </div>
+                    <h6>Advanced machine learning algorithms analyze patient data to provide comprehensive risk assessment across multiple medical conditions.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Assessment Form Section -->
+<section class="department_section hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>PATIENT <span>DATA ENTRY</span></h1>
+                    <p>Enter patient information for AI risk assessment</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="assessment-form-container">
+                    <!-- Input Tabs -->
+                    <div class="input-tabs">
+                        <button class="tab-button active" onclick="switchTab('manual')">
+                            <i class="fa fa-keyboard"></i> Manual Input
+                        </button>
+                        <button class="tab-button" onclick="switchTab('json')">
+                            <i class="fa fa-code"></i> JSON Input
+                        </button>
+                        <button class="tab-button" onclick="switchTab('bulk')">
+                            <i class="fa fa-upload"></i> Bulk Upload
+                        </button>
+                    </div>
+                    
+                    <!-- Manual Input Tab -->
+                    <div id="manual-tab" class="tab-content active">
+                        <form id="manual-form" method="POST" action="{{ url_for('assess_risk') }}">
+                            <!-- Condition Selection -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="condition"><strong>Select Medical Condition for Assessment:</strong></label>
+                                        <select id="condition" name="condition" class="form-control" required onchange="showConditionFields()">
+                                            <option value="">Select Condition</option>
+                                            <option value="kidney">Kidney Disease</option>
+                                            <option value="diabetes">Diabetes</option>
+                                            <option value="heart">Heart Disease</option>
+                                            <option value="liver">Liver Disease</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Common Fields -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="age">Age:</label>
+                                        <input type="number" id="age" name="age" class="form-control" placeholder="Enter age" min="0" max="120" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="gender">Gender:</label>
+                                        <select id="gender" name="gender" class="form-control" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="1">Male</option>
+                                            <option value="0">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kidney Disease Fields -->
+                            <div id="kidney-fields" class="condition-fields" style="display: none;">
+                                <h4 class="text-primary">Kidney Disease Assessment</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="bp">Blood Pressure:</label>
+                                            <input type="number" id="bp" name="bp" class="form-control" placeholder="BP">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="bgr">Blood Glucose:</label>
+                                            <input type="number" id="bgr" name="bgr" class="form-control" placeholder="BGR" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="bu">Blood Urea:</label>
+                                            <input type="number" id="bu" name="bu" class="form-control" placeholder="BU" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="sc">Serum Creatinine:</label>
+                                            <input type="number" id="sc" name="sc" class="form-control" placeholder="SC" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="sod">Sodium:</label>
+                                            <input type="number" id="sod" name="sod" class="form-control" placeholder="Sodium">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="pot">Potassium:</label>
+                                            <input type="number" id="pot" name="pot" class="form-control" placeholder="Potassium" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="hemo">Hemoglobin:</label>
+                                            <input type="number" id="hemo" name="hemo" class="form-control" placeholder="Hemoglobin" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="pcv">Packed Cell Volume:</label>
+                                            <input type="number" id="pcv" name="pcv" class="form-control" placeholder="PCV">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="wc">White Blood Cells:</label>
+                                            <input type="number" id="wc" name="wc" class="form-control" placeholder="WBC">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="rc">Red Blood Cells:</label>
+                                            <input type="number" id="rc" name="rc" class="form-control" placeholder="RBC" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="htn">Hypertension:</label>
+                                            <select id="htn" name="htn" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="dm">Diabetes:</label>
+                                            <select id="dm" name="dm" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Diabetes Fields -->
+                            <div id="diabetes-fields" class="condition-fields" style="display: none;">
+                                <h4 class="text-primary">Diabetes Assessment</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="bmi">BMI:</label>
+                                            <input type="number" id="bmi" name="bmi" class="form-control" placeholder="BMI" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="hypertension">Hypertension:</label>
+                                            <select id="hypertension" name="hypertension" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="heart_disease">Heart Disease:</label>
+                                            <select id="heart_disease" name="heart_disease" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="smoking_history">Smoking History:</label>
+                                            <select id="smoking_history" name="smoking_history" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="never">Never</option>
+                                                <option value="No Info">No Info</option>
+                                                <option value="former">Former</option>
+                                                <option value="current">Current</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="HbA1c_level">HbA1c Level:</label>
+                                            <input type="number" id="HbA1c_level" name="HbA1c_level" class="form-control" placeholder="HbA1c" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="blood_glucose_level">Blood Glucose Level:</label>
+                                            <input type="number" id="blood_glucose_level" name="blood_glucose_level" class="form-control" placeholder="Blood Glucose">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Heart Disease Fields -->
+                            <div id="heart-fields" class="condition-fields" style="display: none;">
+                                <h4 class="text-primary">Heart Disease Assessment</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="chest_pain_type">Chest Pain Type:</label>
+                                            <select id="chest_pain_type" name="chest_pain_type" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="1">Type 1</option>
+                                                <option value="2">Type 2</option>
+                                                <option value="3">Type 3</option>
+                                                <option value="4">Type 4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="bp_heart">Blood Pressure:</label>
+                                            <input type="number" id="bp_heart" name="bp" class="form-control" placeholder="BP">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="cholesterol_heart">Cholesterol:</label>
+                                            <input type="number" id="cholesterol_heart" name="cholesterol" class="form-control" placeholder="Cholesterol">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="fbs_over_120">FBS over 120:</label>
+                                            <select id="fbs_over_120" name="fbs_over_120" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="ekg_results">EKG Results:</label>
+                                            <select id="ekg_results" name="ekg_results" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="0">Normal</option>
+                                                <option value="1">Abnormal</option>
+                                                <option value="2">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="max_hr">Max Heart Rate:</label>
+                                            <input type="number" id="max_hr" name="max_hr" class="form-control" placeholder="Max HR">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="exercise_angina">Exercise Angina:</label>
+                                            <select id="exercise_angina" name="exercise_angina" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="st_depression">ST Depression:</label>
+                                            <input type="number" id="st_depression" name="st_depression" class="form-control" placeholder="ST Depression" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="slope_st">Slope of ST:</label>
+                                            <select id="slope_st" name="slope_st" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="1">Upsloping</option>
+                                                <option value="2">Flat</option>
+                                                <option value="3">Downsloping</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Liver Disease Fields -->
+                            <div id="liver-fields" class="condition-fields" style="display: none;">
+                                <h4 class="text-primary">Liver Disease Assessment</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="total_bilirubin">Total Bilirubin:</label>
+                                            <input type="number" id="total_bilirubin" name="total_bilirubin" class="form-control" placeholder="Total Bilirubin" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="direct_bilirubin">Direct Bilirubin:</label>
+                                            <input type="number" id="direct_bilirubin" name="direct_bilirubin" class="form-control" placeholder="Direct Bilirubin" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="alkaline_phosphatase">Alkaline Phosphatase:</label>
+                                            <input type="number" id="alkaline_phosphatase" name="alkaline_phosphatase" class="form-control" placeholder="Alkaline Phosphatase">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="alt">ALT (SGPT):</label>
+                                            <input type="number" id="alt" name="alt" class="form-control" placeholder="ALT">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="ast">AST (SGOT):</label>
+                                            <input type="number" id="ast" name="ast" class="form-control" placeholder="AST">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="total_proteins">Total Proteins:</label>
+                                            <input type="number" id="total_proteins" name="total_proteins" class="form-control" placeholder="Total Proteins" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="albumin">Albumin:</label>
+                                            <input type="number" id="albumin" name="albumin" class="form-control" placeholder="Albumin" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="ag_ratio">A/G Ratio:</label>
+                                            <input type="number" id="ag_ratio" name="ag_ratio" class="form-control" placeholder="A/G Ratio" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group text-center">
+                                <button type="submit" class="theme-btn">
+                                    <i class="fa fa-search"></i> Assess Patient Risk
+                                </button>
+                                <button type="button" class="theme-btn btn-success ml-3" onclick="generateReport()">
+                                    <i class="fa fa-file-text"></i> Generate AI Report
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- JSON Input Tab -->
+                    <div id="json-tab" class="tab-content">
+                        <form id="json-form" method="POST" action="{{ url_for('assess_risk') }}">
+                            <div class="form-group">
+                                <label for="condition_json">Condition Type:</label>
+                                <select id="condition_json" name="condition" class="form-control" required>
+                                    <option value="">Select Condition</option>
+                                    <option value="kidney">Kidney Disease</option>
+                                    <option value="diabetes">Diabetes</option>
+                                    <option value="heart">Heart Disease</option>
+                                    <option value="liver">Liver Disease</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient_data">Patient Data (JSON format):</label>
+                                <textarea id="patient_data" name="patient_data" class="form-control" rows="12" placeholder='Enter patient data in JSON format, e.g.:
+{
+    "Age": 65,
+    "BMI": 28.5,
+    "SystolicBP": 145,
+    "DiastolicBP": 95,
+    "SerumCreatinine": 2.1,
+    "eGFR": 25,
+    "Gender": 1
+}' required></textarea>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="theme-btn">
+                                    <i class="fa fa-search"></i> Assess Patient Risk
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Bulk Upload Tab -->
+                    <div id="bulk-tab" class="tab-content">
+                        <form id="bulk-form" method="POST" action="{{ url_for('assess_bulk_risk') }}">
+                            <div class="form-group">
+                                <label for="bulk_condition">Condition Type:</label>
+                                <select id="bulk_condition" name="condition" class="form-control" required>
+                                    <option value="">Select Condition</option>
+                                    <option value="kidney">Kidney Disease</option>
+                                    <option value="diabetes">Diabetes</option>
+                                    <option value="heart">Heart Disease</option>
+                                    <option value="liver">Liver Disease</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bulk_data">Bulk Patient Data (JSON Array):</label>
+                                <textarea id="bulk_data" name="bulk_data" class="form-control" rows="15" placeholder='Enter multiple patients in JSON array format, e.g.:
+[
+    {
+        "Age": 65,
+        "BMI": 28.5,
+        "SystolicBP": 145,
+        "DiastolicBP": 95,
+        "SerumCreatinine": 2.1,
+        "eGFR": 25,
+        "Gender": 1
+    },
+    {
+        "Age": 45,
+        "BMI": 32.1,
+        "SystolicBP": 130,
+        "DiastolicBP": 85,
+        "SerumCreatinine": 1.2,
+        "eGFR": 60,
+        "Gender": 0
+    }
+]' required></textarea>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="theme-btn">
+                                    <i class="fa fa-users"></i> Assess Bulk Patients
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sample Patients Section -->
+<section class="testimonial_sec hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>SAMPLE <span>PATIENT SCENARIOS</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="sample-patient-card" onclick="loadSamplePatient('kidney')">
+                    <div class="patient-icon">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h4>High-Risk Kidney Patient</h4>
+                    <p>John Smith, 72M<br/>eGFR: 25, Systolic BP: 145</p>
+                    <span class="risk-badge high">HIGH RISK</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="sample-patient-card" onclick="loadSamplePatient('diabetes')">
+                    <div class="patient-icon">
+                        <i class="fa fa-tint"></i>
+                    </div>
+                    <h4>Moderate-Risk Diabetes Patient</h4>
+                    <p>Sarah Johnson, 45F<br/>BMI: 32.1, HbA1c: 7.8</p>
+                    <span class="risk-badge moderate">MODERATE RISK</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="sample-patient-card" onclick="loadSamplePatient('heart')">
+                    <div class="patient-icon">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <h4>High-Risk Heart Patient</h4>
+                    <p>Robert Davis, 58M<br/>Cholesterol: 280, BP: 160</p>
+                    <span class="risk-badge high">HIGH RISK</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="sample-patient-card" onclick="loadSamplePatient('liver')">
+                    <div class="patient-icon">
+                        <i class="fa fa-liver"></i>
+                    </div>
+                    <h4>Moderate-Risk Liver Patient</h4>
+                    <p>Maria Garcia, 55F<br/>Bilirubin: 2.5, AST: 120</p>
+                    <span class="risk-badge moderate">MODERATE RISK</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section (Hidden by default) -->
+<div id="results-section" class="results-container" style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="results-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.assessment-form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.input-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: #666;
+}
+
+.tab-button.active {
+    background: white;
+    color: #007bff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.sample-patient-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.sample-patient-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.patient-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.sample-patient-card h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.sample-patient-card p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.risk-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.risk-badge.high {
+    background: #ff6b6b;
+    color: white;
+}
+
+.risk-badge.moderate {
+    background: #feca57;
+    color: #333;
+}
+
+.risk-badge.low {
+    background: #48dbfb;
+    color: white;
+}
+
+.results-container {
+    background: #f8f9fa;
+    padding: 40px 0;
+    margin-top: 30px;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    display: none;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Sample patient data
+const samplePatients = {
+    kidney: {
+        condition: 'kidney',
+        data: {
+            "Age": 72,
+            "Gender": 1,
+            "BMI": 28.5,
+            "SystolicBP": 145,
+            "DiastolicBP": 95,
+            "SerumCreatinine": 2.8,
+            "eGFR": 25,
+            "ProteinInUrine": 450,
+            "ACR": 350,
+            "CholesterolTotal": 220,
+            "CholesterolLDL": 140,
+            "CholesterolHDL": 35,
+            "Hypertension_Flag": 1,
+            "Diabetes_Flag": 0,
+            "Obesity_Flag": 0
+        }
+    },
+    diabetes: {
+        condition: 'diabetes',
+        data: {
+            "age": 45,
+            "gender": "Female",
+            "bmi": 32.1,
+            "hypertension": 1,
+            "heart_disease": 0,
+            "smoking_history": "former",
+            "HbA1c_level": 7.8,
+            "blood_glucose_level": 180,
+            "family_history": 1
+        }
+    },
+    heart: {
+        condition: 'heart',
+        data: {
+            "Age": 58,
+            "Sex": 1,
+            "Chest pain type": 3,
+            "BP": 160,
+            "Cholesterol": 280,
+            "FBS over 120": 1,
+            "EKG results": 2,
+            "Max HR": 140,
+            "Exercise angina": 1,
+            "ST depression": 1.8,
+            "Slope of ST": 2,
+            "Number of vessels fluro": 2,
+            "Thallium": 6
+        }
+    },
+    liver: {
+        condition: 'liver',
+        data: {
+            "Age of the patient": 55,
+            "Gender of the patient": "Female",
+            "Total Bilirubin": 2.5,
+            "Direct Bilirubin": 1.2,
+            "Alkphos Alkaline Phosphotase": 450,
+            "Sgpt Alamine Aminotransferase": 85,
+            "Sgot Aspartate Aminotransferase": 120,
+            "Total Protiens": 6.2,
+            "ALB Albumin": 2.8,
+            "A/G Ratio Albumin and Globulin Ratio": 0.8
+        }
+    }
+};
+
+function showConditionFields() {
+    const condition = document.getElementById('condition').value;
+    
+    // Hide all condition-specific fields
+    document.querySelectorAll('.condition-fields').forEach(field => {
+        field.style.display = 'none';
+    });
+    
+    // Show fields for selected condition
+    if (condition) {
+        const fieldId = condition + '-fields';
+        const fieldElement = document.getElementById(fieldId);
+        if (fieldElement) {
+            fieldElement.style.display = 'block';
+        }
+    }
+}
+
+function switchTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active class from all tab buttons
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // Show selected tab content
+    document.getElementById(tabName + '-tab').classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+}
+
+function loadSamplePatient(type) {
+    const patient = samplePatients[type];
+    if (!patient) return;
+    
+    // Switch to JSON tab
+    switchTab('json');
+    
+    // Set condition
+    document.getElementById('condition_json').value = patient.condition;
+    
+    // Set patient data
+    document.getElementById('patient_data').value = JSON.stringify(patient.data, null, 2);
+    
+    // Also populate manual inputs
+    populateManualInputs(patient.data);
+}
+
+function populateManualInputs(data) {
+    // Map common fields
+    if (data.Age) document.getElementById('age').value = data.Age;
+    if (data.age) document.getElementById('age').value = data.age;
+    if (data['Age of the patient']) document.getElementById('age').value = data['Age of the patient'];
+    
+    if (data.Gender !== undefined) document.getElementById('gender').value = data.Gender;
+    if (data.gender === 'Female') document.getElementById('gender').value = 0;
+    if (data.gender === 'Male') document.getElementById('gender').value = 1;
+    if (data['Gender of the patient'] === 'Female') document.getElementById('gender').value = 0;
+    if (data['Gender of the patient'] === 'Male') document.getElementById('gender').value = 1;
+    
+    if (data.BMI) document.getElementById('bmi').value = data.BMI;
+    if (data.bmi) document.getElementById('bmi').value = data.bmi;
+    
+    if (data.SystolicBP) document.getElementById('systolic_bp').value = data.SystolicBP;
+    if (data.BP) document.getElementById('systolic_bp').value = data.BP;
+    
+    if (data.DiastolicBP) document.getElementById('diastolic_bp').value = data.DiastolicBP;
+    
+    if (data.SerumCreatinine) document.getElementById('creatinine').value = data.SerumCreatinine;
+    
+    if (data.CholesterolTotal) document.getElementById('cholesterol').value = data.CholesterolTotal;
+    if (data.Cholesterol) document.getElementById('cholesterol').value = data.Cholesterol;
+}
+
+// Handle form submissions
+document.getElementById('manual-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitAssessment('manual');
+});
+
+document.getElementById('json-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitAssessment('json');
+});
+
+document.getElementById('bulk-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitBulkAssessment();
+});
+
+function generateReport() {
+    const form = document.getElementById('manual-form');
+    const formData = new FormData(form);
+    
+    // Show loading
+    showLoading();
+    
+    fetch('{{ url_for("generate_report") }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        hideLoading();
+        if (data.success) {
+            displayReport(data.report, data.assessment);
+        } else {
+            alert('Error generating report: ' + data.error);
+        }
+    })
+    .catch(error => {
+        hideLoading();
+        console.error('Error:', error);
+        alert('Error generating report: ' + error.message);
+    });
+}
+
+function displayReport(report, assessment) {
+    const resultsContent = document.getElementById('results-content');
+    const resultsSection = document.getElementById('results-section');
+    
+    let riskClass = 'risk-low';
+    if (assessment.risk_level === 'HIGH') riskClass = 'risk-high';
+    else if (assessment.risk_level === 'MODERATE') riskClass = 'risk-moderate';
+    
+    resultsContent.innerHTML = `
+        <div class="result-card ${riskClass}">
+            <div class="result-header">
+                <h2><i class="fa fa-file-text"></i> AI-GENERATED MEDICAL REPORT</h2>
+            </div>
+            <div class="result-metrics">
+                <div class="metric">
+                    <span class="metric-value">${(assessment.risk_probability * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Risk Probability</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${(assessment.confidence_score * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Confidence Score</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${assessment.risk_level}</span>
+                    <span class="metric-label">Risk Level</span>
+                </div>
+            </div>
+            <div class="result-details">
+                <div class="ai-report">
+                    <h4><i class="fa fa-robot"></i> AI Medical Report:</h4>
+                    <div class="report-content">
+                        <pre>${report}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function submitAssessment(type) {
+    const form = document.getElementById(type + '-form');
+    const formData = new FormData(form);
+    
+    showLoading();
+    
+    fetch('{{ url_for("assess_risk") }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        hideLoading();
+        displayResults(data);
+    })
+    .catch(error => {
+        hideLoading();
+        console.error('Error:', error);
+        alert('Error assessing risk: ' + error.message);
+    });
+}
+
+function submitBulkAssessment() {
+    const form = document.getElementById('bulk-form');
+    const formData = new FormData(form);
+    
+    showLoading();
+    
+    fetch('{{ url_for("assess_bulk_risk") }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        hideLoading();
+        displayBulkResults(data);
+    })
+    .catch(error => {
+        hideLoading();
+        console.error('Error:', error);
+        alert('Error assessing bulk patients: ' + error.message);
+    });
+}
+
+function showLoading() {
+    const loading = document.createElement('div');
+    loading.className = 'loading';
+    loading.innerHTML = '<div class="spinner"></div><p>Analyzing patient data...</p>';
+    document.getElementById('results-section').appendChild(loading);
+    document.getElementById('results-section').style.display = 'block';
+}
+
+function hideLoading() {
+    const loading = document.querySelector('.loading');
+    if (loading) {
+        loading.remove();
+    }
+}
+
+function displayResults(data) {
+    const resultsContent = document.getElementById('results-content');
+    const resultsSection = document.getElementById('results-section');
+    
+    let riskClass = 'risk-low';
+    if (data.risk_level === 'HIGH') riskClass = 'risk-high';
+    else if (data.risk_level === 'MODERATE') riskClass = 'risk-moderate';
+    
+    resultsContent.innerHTML = `
+        <div class="result-card ${riskClass}">
+            <div class="result-header">
+                <h2><i class="fa fa-exclamation-triangle"></i> ${data.risk_level} RISK</h2>
+            </div>
+            <div class="result-metrics">
+                <div class="metric">
+                    <span class="metric-value">${(data.risk_probability * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Risk Probability</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${(data.confidence_score * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Confidence Score</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${data.matched_rules_count}</span>
+                    <span class="metric-label">Clinical Rules</span>
+                </div>
+            </div>
+            <div class="result-details">
+                <div class="risk-factors">
+                    <h4><i class="fa fa-exclamation-circle"></i> Matched Clinical Rules:</h4>
+                    ${data.matched_rules.map(rule => `
+                        <div class="risk-factor">
+                            <strong>${rule.name}</strong><br>
+                            ${rule.explanation}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="recommendations">
+                    <h4><i class="fa fa-clipboard-list"></i> Recommended Actions:</h4>
+                    ${data.recommended_actions.map(action => `
+                        <div class="recommendation">${action}</div>
+                    `).join('')}
+                </div>
+                <div class="explanation">
+                    <h4><i class="fa fa-info-circle"></i> AI Analysis Summary:</h4>
+                    <div class="explanation-content">
+                        <pre>${data.explanation}</pre>
+                    </div>
+                </div>
+                ${data.ml_predictions ? `
+                <div class="ml-predictions">
+                    <h4><i class="fa fa-brain"></i> AI Model Predictions:</h4>
+                    <div class="model-predictions">
+                        ${Object.entries(data.ml_predictions).filter(([key]) => key !== 'ensemble').map(([model, pred]) => `
+                            <div class="model-prediction">
+                                <strong>${model.replace('_', ' ').toUpperCase()}:</strong> 
+                                <span class="prediction-value">${(pred.probability * 100).toFixed(1)}%</span>
+                            </div>
+                        `).join('')}
+                        <div class="model-prediction ensemble">
+                            <strong>ENSEMBLE PREDICTION:</strong> 
+                            <span class="prediction-value ensemble-value">${(data.ml_predictions.ensemble.probability * 100).toFixed(1)}%</span>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+    
+    resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function displayBulkResults(data) {
+    const resultsContent = document.getElementById('results-content');
+    const resultsSection = document.getElementById('results-section');
+    
+    // Calculate summary statistics
+    const results = data.results || data;
+    const highRisk = results.filter(r => r.risk_level === 'HIGH').length;
+    const moderateRisk = results.filter(r => r.risk_level === 'MODERATE').length;
+    const lowRisk = results.filter(r => r.risk_level === 'LOW').length;
+    const avgProbability = results.reduce((sum, r) => sum + r.risk_probability, 0) / results.length;
+    const avgConfidence = results.reduce((sum, r) => sum + r.confidence_score, 0) / results.length;
+    
+    resultsContent.innerHTML = `
+        <div class="result-card risk-moderate">
+            <div class="result-header">
+                <h2><i class="fa fa-users"></i> BULK ASSESSMENT RESULTS</h2>
+            </div>
+            <div class="result-metrics">
+                <div class="metric">
+                    <span class="metric-value">${results.length}</span>
+                    <span class="metric-label">Total Patients</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${highRisk}</span>
+                    <span class="metric-label">High Risk</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${moderateRisk}</span>
+                    <span class="metric-label">Moderate Risk</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${lowRisk}</span>
+                    <span class="metric-label">Low Risk</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${(avgProbability * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Avg Probability</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">${(avgConfidence * 100).toFixed(1)}%</span>
+                    <span class="metric-label">Avg Confidence</span>
+                </div>
+            </div>
+            <div class="result-details">
+                <div class="risk-factors">
+                    <h4><i class="fa fa-chart-bar"></i> Risk Distribution Summary:</h4>
+                    <div class="risk-factor">
+                        <strong>High Risk Patients (${highRisk}):</strong> Require immediate medical attention and specialist consultation.
+                    </div>
+                    <div class="risk-factor">
+                        <strong>Moderate Risk Patients (${moderateRisk}):</strong> Need regular monitoring and lifestyle modifications.
+                    </div>
+                    <div class="risk-factor">
+                        <strong>Low Risk Patients (${lowRisk}):</strong> Continue with regular preventive care.
+                    </div>
+                </div>
+                <div class="recommendations">
+                    <h4><i class="fa fa-clipboard-list"></i> Overall Recommendations:</h4>
+                    <div class="recommendation">Prioritize high-risk patients for immediate consultation</div>
+                    <div class="recommendation">Schedule follow-up appointments for moderate-risk patients</div>
+                    <div class="recommendation">Continue routine monitoring for low-risk patients</div>
+                    <div class="recommendation">Consider population-level health interventions based on risk distribution</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<style>
+.result-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.result-card.risk-high {
+    border-left: 5px solid #ff6b6b;
+}
+
+.result-card.risk-moderate {
+    border-left: 5px solid #feca57;
+}
+
+.result-card.risk-low {
+    border-left: 5px solid #48dbfb;
+}
+
+.result-header h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.result-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.metric {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.metric-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-details h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.risk-factor, .recommendation {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.ml-predictions {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.model-predictions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.model-prediction {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.model-prediction.ensemble {
+    background: #e3f2fd;
+    border: 2px solid #2196f3;
+    font-weight: bold;
+}
+
+.prediction-value {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 5px;
+}
+
+.ensemble-value {
+    color: #2196f3;
+    font-size: 1.3em;
+}
+
+.ai-report {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.report-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin-top: 15px;
+}
+
+.report-content pre {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.95em;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    color: #333;
+}
+
+.explanation {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.explanation p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.explanation-content pre {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="title" content="Wellora">
+    <meta property="fb:app_id" content="312" /> 
+    <meta property="og:type"  content="Medical" /> 
+    <meta property="og:url"   content="http://localhost:5000"/> 
+    <meta property="og:title" content="Wellora">
+    <meta property="og:image" content="{{ url_for('static', filename='assets/image/logo.png') }}">
+    <meta property="og:description" content="Wellora - Proactive Patient Risk Advisor">
+    <meta name="full-screen" content="yes">
+    <meta name="theme-color" content="#568701">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+    <title>{% block title %}Wellora{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/responsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/fonts/font/flaticon.css') }}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/image/fav/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/image/fav/favicon-16x16.png') }}" sizes="16x16">
+</head>
+<body class="sbar_color_one">
+    <!--Start Preloader -->
+    <div class="preloader"></div>
+    <!--End Preloader --> 
+
+    <div class="page-wapper home-page-one">
+        <header class="site-header" id="header-one">
+            <div class="top-bar">
+                <div class="container">
+                    <div class="row clearfix">
+                        <div class="col-lg-12">
+                            <div class="float-left">
+                                <p><i class="fa fa-map-marker"></i> Wellora Care Center</p>
+                            </div>
+                            <div class="float-right ">
+                                <div class="inner-sec">
+                                    <ul class="social-media">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-share-alt"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-expand-lg bsnav bsnav-sticky bsnav-sticky-slide">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='assets/image/logo.png') }}" class="img-fluid" alt="Wellora">
+                    </a>
+                    <button class="navbar-toggler toggler-spring"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav navbar-mobile ml-auto mr-auto">
+                            <li class="nav-item dropdown {% if request.endpoint == 'index' %}activee{% endif %}">
+                                <a class="nav-link link_hd" href="{{ url_for('index') }}">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link_hd" href="#">Departments</a>
+                                <ul class="navbar-nav submenu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('departments') }}">All Departments</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('kidney_department') }}">Kidney Disease</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('diabetes_department') }}">Diabetes</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('heart_department') }}">Heart Disease</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('liver_department') }}">Liver Disease</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link_hd" href="#">AI Tools</a>
+                                <ul class="navbar-nav submenu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('risk_assessment') }}">Risk Assessment</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('bulk_assessment') }}">Bulk Assessment</a></li>
+                                    
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('doctor_dashboard') }}">Doctor Dashboard</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link_hd" href="#">About</a>
+                                <ul class="navbar-nav submenu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Wellora</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url_for('faq') }}">FAQs</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav navbar-mobile right-nav ml-auto ">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#"><span class="flaticon-search head-icon"></span></a>
+                                <ul class="navbar-nav submenu">
+                                    <li>
+                                        <form action="{{ url_for('search') }}" method="GET">
+                                            <div class="form-group">
+                                                <input name="q" type="text" placeholder="Enter keywords">
+                                                <button type="submit" class="theme-btn">GO</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Contact Through -->
+        <div class="contact_through">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="contact_through_inner">
+                            <span class="flaticon-phone-1 icon"></span>
+                            <p>Emergency Cases: <br/>1234567890</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="contact_through_inner">
+                            <span class="flaticon-placeholder icon"></span>
+                            <p>AI Healthcare Center<br/>Medical Technology Hub</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="contact_through_inner">
+                            <span class="flaticon-envelope icon"></span>
+                            <p>Email Address<br/>contact@aihealthcare.com</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="contact_through_inner">
+                            <span class="flaticon-calendar icon"></span>
+                            <p>Book Online<br/>Assessment Now</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer home-one">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="footer-widget first">
+                            <h2>ABOUT US</h2>
+                            <div class="footer-text">
+                            <p>Wellora provides advanced healthcare risk assessment using machine learning and clinical knowledge to help healthcare professionals make informed decisions.</p>
+                                <ul class="social-media">
+                                    <li><a href="#" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-vimeo"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-wifi"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="footer-widget two">
+                            <h2>DEPARTMENTS</h2>
+                            <div class="footer-text">
+                                <ul>
+                                    <li><a href="{{ url_for('kidney_department') }}">Kidney Disease</a></li>
+                                    <li><a href="{{ url_for('diabetes_department') }}">Diabetes</a></li>
+                                    <li><a href="{{ url_for('heart_department') }}">Heart Disease</a></li>
+                                    <li><a href="{{ url_for('liver_department') }}">Liver Disease</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="footer-widget two">
+                            <h2>LINKS</h2>
+                            <div class="footer-text">
+                                <ul>
+                                    <li><a href="{{ url_for('about') }}">About Wellora</a></li>
+                                    <li><a href="{{ url_for('risk_assessment') }}">Risk Assessment</a></li>
+                                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                                    <li><a href="{{ url_for('faq') }}">FAQs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="footer-widget third">
+                            <h2>NEWSLETTER</h2>
+                            <div class="footer-text">
+                                <p>Subscribe to our newsletter for the latest Wellora updates.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <input type="email" id="email" placeholder="Enter Your Email*">
+                                        <button class="theme-btn" type="submit">SUBSCRIBE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-last home-one">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="left">
+                            <p>© 2025 <span>Wellora.</span> All rights reserved.</p>
+                        </div>
+                        <div class="right">
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Help Center</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top -->
+    <a href="#" id="scroll" class="default-bg" style="display: none;"><span></span></a>
+
+    <!-- Mobile navbar -->
+    <div class="bsnav-mobile">
+        <div class="bsnav-mobile-overlay"></div>
+        <div class="navbar">
+            <button class="navbar-toggler toggler-spring mobile-toggler"><span class="fa fa-close"></span></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='assets/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/owl.js') }}"></script>  
+    <script src="{{ url_for('static', filename='assets/js/bsnav.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/SmoothScroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/validator.min.js') }}"></script>  
+    <script src="{{ url_for('static', filename='assets/js/contact.js') }}"></script>   
+    <script src="{{ url_for('static', filename='assets/js/appear.js') }}"></script>  
+    <script src="{{ url_for('static', filename='assets/js/script.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+
+    <!-- ElevenLabs ConvAI Voice Agent -->
+    <elevenlabs-convai agent-id="agent_7701k67qg7f8e59twja5pgtt8ejd"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+    <!-- Wellora Agent Bridge: safe navigation helpers available to the voice agent -->
+    <script>
+    (function () {
+        const allowedPaths = [
+            '/',
+            '/index.html',
+            '/risk-assessment',
+            '/bulk-assessment',
+            '/departments',
+            '/departments/kidney',
+            '/departments/diabetes',
+            '/departments/heart',
+            '/departments/liver',
+            '/doctor-dashboard',
+            '/clinician-dashboard',
+            '/about',
+            '/contact',
+            '/faq',
+            '/health'
+        ];
+
+        function isAllowed(url) {
+            try {
+                const a = document.createElement('a');
+                a.href = url;
+                const path = a.pathname || url;
+                return allowedPaths.includes(path);
+            } catch (_) { return false; }
+        }
+
+        function navigate(path) {
+            if (!isAllowed(path)) {
+                console.warn('[WelloraAgent] Blocked navigation to', path);
+                return { status: 'error', message: 'unsupported path' };
+            }
+            window.location.href = path;
+            return { status: 'ok', route: path };
+        }
+
+        function switchRiskTab(tab) {
+            const map = { manual: '#manual-tab', json: '#json-tab', bulk: '#bulk-tab' };
+            const id = map[String(tab || '').toLowerCase()];
+            if (!id) return { status: 'error', message: 'unknown tab' };
+            const btns = document.querySelectorAll('.tab-button');
+            if (btns && btns.length) {
+                // try to click the corresponding button by order
+                const idx = ['manual','json','bulk'].indexOf(String(tab).toLowerCase());
+                if (idx >= 0 && btns[idx]) btns[idx].click();
+            }
+            const el = document.querySelector(id);
+            if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            return { status: 'ok', tab };
+        }
+
+        function focusSelector(selector) {
+            const el = document.querySelector(selector);
+            if (!el) return { status: 'error', message: 'selector not found' };
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            try { el.focus(); } catch(_){}
+            return { status: 'ok' };
+        }
+
+        // Expose a minimal, safe API for the agent
+        window.WelloraAgent = {
+            navigate,
+            switchRiskTab,
+            focusSelector,
+            allowedPaths: Object.freeze(allowedPaths)
+        };
+        console.debug('[WelloraAgent] Bridge ready');
+    })();
+    </script>
+</body>
+</html>

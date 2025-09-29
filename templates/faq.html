@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ - Wellora{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="ban-bread-crumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">About</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="welcome_section hme-one" style="background:url({{ url_for('static', filename='assets/image/welcome-hme-1-bg.jpg') }})"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="welcme_inner text-center">
+                    <div class="heading clearfix">
+                        <h1>FREQUENTLY <span>ASKED QUESTIONS</span></h1>
+                    </div>
+                    <h6>Find answers to common questions about our AI-powered healthcare risk assessment system.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Content -->
+<section class="department_section hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="faq-container">
+                    <div class="accordion" id="faq-accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How accurate is the AI risk assessment? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Our AI system achieves high accuracy rates across different medical conditions, typically above 95% for most assessments. The system combines multiple machine learning models with clinical knowledge to provide reliable risk assessments that help healthcare professionals make informed decisions.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        What data is required for risk assessment? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    The system requires basic patient information such as age, gender, BMI, blood pressure, and condition-specific biomarkers. The more data available, the more accurate the assessment becomes. We support multiple input methods including manual entry, JSON format, and bulk upload.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Is patient data secure? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse fade" aria-labelledby="headingThree" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Absolutely. We follow strict data security protocols and comply with healthcare data protection regulations including HIPAA. All patient data is encrypted during transmission and storage, and we never share personal information with third parties without explicit consent.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Can the system handle multiple patients at once? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseFour" class="collapse fade" aria-labelledby="headingFour" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Yes, our system supports bulk assessment of multiple patients simultaneously. This feature is particularly useful for healthcare facilities that need to process large numbers of patients efficiently. You can upload a JSON array of patient data for batch processing.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingFive">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        How do I get started with the system? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseFive" class="collapse fade" aria-labelledby="headingFive" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Getting started is easy! Simply visit our risk assessment page and enter patient data using any of our input methods: manual entry, JSON format, or bulk upload. The system will provide immediate risk assessment results with detailed explanations and recommendations.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingSix">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        What medical conditions are supported? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseSix" class="collapse fade" aria-labelledby="headingSix" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Our system currently supports risk assessment for four major medical conditions: Chronic Kidney Disease, Diabetes, Heart Disease, and Liver Disease. Each condition has specialized AI models trained on relevant medical datasets and clinical guidelines.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingSeven">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        Do you offer training and support? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseSeven" class="collapse fade" aria-labelledby="headingSeven" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Yes, we provide comprehensive training and ongoing support to help healthcare professionals make the most of our AI system. We offer online documentation, video tutorials, and direct support through our contact channels. Contact us to learn more about our training programs.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingEight">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        How often is the AI system updated? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseEight" class="collapse fade" aria-labelledby="headingEight" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Our AI models are continuously updated with new medical data and clinical research. We release major updates quarterly and minor improvements monthly. The system also learns from new assessments and outcomes to improve accuracy over time.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingNine">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        Can I integrate this with my existing healthcare system? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseNine" class="collapse fade" aria-labelledby="headingNine" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Yes, we provide API access and integration support for healthcare systems. Our system can be integrated with Electronic Health Records (EHR), Hospital Information Systems (HIS), and other healthcare management platforms. Contact our technical team for integration assistance.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingTen">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        What if I have more questions? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTen" class="collapse fade" aria-labelledby="headingTen" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    If you have additional questions not covered in this FAQ, please don't hesitate to contact us. You can reach us through our contact page, email us directly, or schedule a consultation with our technical team. We're here to help you make the most of our AI healthcare system.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA -->
+<section class="doc_community">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="doc_community_text">
+                    <h1>STILL HAVE <span>QUESTIONS?</span></h1>
+                    <p>Contact our support team for personalized assistance with our AI healthcare risk assessment system.</p>
+                </div>
+                <div class="mak_appointment">
+                    <a href="{{ url_for('contact') }}">CONTACT SUPPORT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.faq-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background: #f8f9fa;
+    border: none;
+    padding: 0;
+}
+
+.card-header .btn {
+    background: none;
+    border: none;
+    padding: 20px 25px;
+    text-align: left;
+    width: 100%;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.card-header .btn:hover {
+    background: #e9ecef;
+    color: #007bff;
+}
+
+.card-header .btn:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.card-header .btn i {
+    float: right;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.card-body {
+    padding: 25px;
+    background: white;
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.collapse.show .card-body {
+    border-top: 1px solid #e9ecef;
+}
+
+.flaticon-plus,
+.flaticon-minus {
+    transition: all 0.3s ease;
+}
+
+.collapse.show .flaticon-plus {
+    display: none;
+}
+
+.collapse.show .flaticon-minus {
+    display: inline;
+}
+
+.collapse:not(.show) .flaticon-minus {
+    display: none;
+}
+
+.collapse:not(.show) .flaticon-plus {
+    display: inline;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - AI Healthcare Risk Advisor{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="ban-bread-crumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('departments') }}">Departments</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Department Header -->
+<section class="welcome_section hme-one" style="background:url({{ url_for('static', filename='assets/image/welcome-hme-1-bg.jpg') }})"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="welcme_inner text-center">
+                    <div class="heading clearfix">
+                        <h1>{{ title }} <span>DEPARTMENT</span></h1>
+                    </div>
+                    <h6>AI-powered risk assessment and personalized treatment recommendations for {{ title.lower() }} patients.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Department Content -->
+<section class="department_section hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="department-content">
+                    <h2>About {{ title }} Assessment</h2>
+                    <p>Our AI system provides comprehensive risk assessment for {{ title.lower() }} using advanced machine learning algorithms and clinical knowledge. The system analyzes patient data to predict disease progression and recommend personalized treatment plans.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li><i class="fa fa-check-circle"></i> Advanced risk prediction algorithms</li>
+                        <li><i class="fa fa-check-circle"></i> Clinical rule integration</li>
+                        <li><i class="fa fa-check-circle"></i> Personalized recommendations</li>
+                        <li><i class="fa fa-check-circle"></i> Real-time assessment</li>
+                        <li><i class="fa fa-check-circle"></i> Evidence-based guidelines</li>
+                    </ul>
+                    
+                    <h3>Assessment Process</h3>
+                    <div class="process-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Data Collection</h4>
+                                <p>Collect patient information including demographics, medical history, and current symptoms.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>AI Analysis</h4>
+                                <p>Our AI system analyzes the data using machine learning models and clinical rules.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Risk Assessment</h4>
+                                <p>Generate comprehensive risk assessment with probability scores and confidence levels.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Recommendations</h4>
+                                <p>Provide personalized treatment recommendations and follow-up care plans.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="department-sidebar">
+                    <div class="sidebar-card">
+                        <h3>Quick Assessment</h3>
+                        <p>Start an immediate risk assessment for {{ title.lower() }} patients.</p>
+                        <a href="{{ url_for('risk_assessment') }}" class="theme-btn">Start Assessment</a>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Bulk Assessment</h3>
+                        <p>Process multiple patients simultaneously for efficient screening.</p>
+                        <a href="{{ url_for('risk_assessment') }}" class="theme-btn">Bulk Assessment</a>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Contact Support</h3>
+                        <p>Need help with {{ title.lower() }} assessments? Contact our support team.</p>
+                        <a href="{{ url_for('contact') }}" class="theme-btn">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Department Stats -->
+<section class="testimonial_sec hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>{{ title }} <span>STATISTICS</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Patients Assessed</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-percentage"></i>
+                    </div>
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-clock"></i>
+                    </div>
+                    <div class="stat-number">2 min</div>
+                    <div class="stat-label">Average Assessment Time</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Patient Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.department-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.department-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.department-content h3 {
+    color: #333;
+    margin: 30px 0 15px 0;
+    font-size: 1.5rem;
+}
+
+.department-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.feature-list li {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.feature-list li i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.process-steps {
+    margin: 30px 0;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.step-number {
+    background: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.step-content p {
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.department-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.sidebar-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.theme-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+</style>
+{% endblock %}

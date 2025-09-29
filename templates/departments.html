@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block title %}Departments - Wellora{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="ban-bread-crumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Departments</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments Section -->
+<section class="department_section hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>OUR <span>AI DEPARTMENTS</span></h1>
+                    <p>Comprehensive risk assessment across multiple medical specialties</p>
+                </div>
+            </div>
+        </div>
+        <div class="department_inner">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('kidney_department') }}"><span class="flaticon-blood dep_icon"></span></a> 
+                        <a href="{{ url_for('kidney_department') }}"><h2>Kidney Disease</h2></a> 
+                        <p>AI-powered assessment of chronic kidney disease risk using advanced machine learning algorithms and clinical biomarkers to predict disease progression and optimize treatment plans.</p>
+                        
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('diabetes_department') }}"><span class="flaticon-heart-2 dep_icon"></span></a>
+                        <a href="{{ url_for('diabetes_department') }}"><h2>Diabetes</h2></a>
+                        <p>Predictive models for diabetes risk assessment with personalized treatment recommendations based on patient history, lifestyle factors, and genetic markers.</p>
+                        
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('heart_department') }}"><span class="flaticon-heart-2 dep_icon"></span></a>
+                        <a href="{{ url_for('heart_department') }}"><h2>Heart Disease</h2></a>
+                        <p>Cardiovascular risk prediction using clinical data, imaging results, and advanced AI algorithms to identify patients at risk for heart disease and stroke.</p>
+                       
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('liver_department') }}"><span class="flaticon-stomach dep_icon"></span></a>
+                        <a href="{{ url_for('liver_department') }}"><h2>Liver Disease</h2></a>
+                        <p>Liver function assessment and disease risk prediction through AI analysis of liver enzymes, imaging data, and patient history to enable early intervention.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Technology Section -->
+<section class="welcome_section hme-one" style="background:url({{ url_for('static', filename='assets/image/welcome-hme-1-bg.jpg') }})"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="welcme_inner">
+                    <div class="heading clearfix">
+                        <h1>AI <span>TECHNOLOGY</span></h1>
+                    </div>
+                    <h6>Our advanced AI system combines machine learning algorithms with clinical knowledge to provide comprehensive risk assessment across all medical departments.</h6>
+                    <p>Each department utilizes specialized AI models trained on extensive medical datasets, ensuring accurate and reliable risk predictions. Our technology continuously learns and improves from new data and clinical outcomes.</p>
+                    <ul class="tech-features">
+                        <li><i class="fa fa-check-circle"></i> Machine Learning Algorithms</li>
+                        <li><i class="fa fa-check-circle"></i> Clinical Rule Integration</li>
+                        <li><i class="fa fa-check-circle"></i> Real-time Risk Assessment</li>
+                        <li><i class="fa fa-check-circle"></i> Personalized Recommendations</li>
+                    </ul>
+                    <a href="{{ url_for('risk_assessment') }}" class="theme-btn">START ASSESSMENT</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ai-visualization">
+                    <div class="tech-card">
+                        <i class="fa fa-brain"></i>
+                        <h4>Neural Networks</h4>
+                        <p>Deep learning models for complex pattern recognition</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fa fa-chart-line"></i>
+                        <h4>Predictive Analytics</h4>
+                        <p>Advanced statistical models for risk prediction</p>
+                    </div>
+                    <div class="tech-card">
+                       
+                        <h4>Big Data Processing</h4>
+                        <p>Efficient processing of large medical datasets</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fa fa-shield-alt"></i>
+                        <h4>Clinical Validation</h4>
+                        <p>Evidence-based validation of AI predictions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Department Stats -->
+<section class="testimonial_sec hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>DEPARTMENT <span>STATISTICS</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Kidney Assessments</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-tint"></i>
+                    </div>
+                    <div class="stat-number">3,200+</div>
+                    <div class="stat-label">Diabetes Assessments</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="stat-number">2,800+</div>
+                    <div class="stat-label">Heart Assessments</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa fa-tint"></i>
+                    </div>
+                    <div class="stat-number">1,900+</div>
+                    <div class="stat-label">Liver <br>Assessments</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.department-features {
+    margin-top: 15px;
+}
+
+.feature-tag {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.tech-features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.tech-features li {
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.tech-features li i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.ai-visualization {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.tech-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.tech-card i {
+    font-size: 2.5rem;
+    color: #005a03;
+    margin-bottom: 15px;
+}
+
+.tech-card h4 {
+    color: rgb(2, 26, 1);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.tech-card p {
+    color: rgba(7, 51, 20, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .ai-visualization {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

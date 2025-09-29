@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Wellora{% endblock %}
+
+{% block content %}
+<!-- Main Slider -->
+<section class="main-slider">
+    <div class="main-slider-carousel main-slider-one owl-carousel owl-theme">
+        <div class="slide" style="background-image:url({{ url_for('static', filename='assets/image/banner/home-1-banner-1.jpg') }})">
+            <div class="container text-left">
+                <div class="content">
+                    <h1>AI-POWERED<br/>
+                        <span>HEALTHCARE RISK ASSESSMENT</span></h1>
+                    <div class="text">Advanced machine learning algorithms combined with clinical knowledge to provide proactive patient risk assessment and personalized healthcare recommendations.</div>
+                    <div class="link-box">
+                        <a href="{{ url_for('risk_assessment') }}" class="theme-btn">START ASSESSMENT</a>
+                        <a href="{{ url_for('about') }}" class="theme-btn btn-dark">LEARN MORE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide" style="background-image:url({{ url_for('static', filename='assets/image/banner/home-1-banner-2.jpg') }})"> 
+            <div class="container text-left">
+                <div class="content">
+                    <h1>PREDICTIVE MEDICINE,<br/>
+                        <span>PROACTIVE CARE.</span></h1>
+                    <div class="text">Our AI system analyzes patient data to identify risk factors early, enabling healthcare providers to intervene before conditions worsen.</div>
+                    <div class="link-box">
+                        <a href="{{ url_for('risk_assessment') }}" class="theme-btn">ASSESS RISK</a>
+                        <a href="{{ url_for('contact') }}" class="theme-btn btn-dark">GET IN TOUCH</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide" style="background-image:url({{ url_for('static', filename='assets/image/banner/home-1-banner-3.jpg') }})"> 
+            <div class="container text-left">
+                <div class="content">
+                    <h1>ENHANCING LIVES,<br/>
+                        <span>EXCELLING IN CARE.</span></h1>
+                    <div class="text">Comprehensive risk assessment across multiple medical conditions including kidney disease, diabetes, heart disease, and liver conditions.</div>
+                    <div class="link-box">
+                        <a href="{{ url_for('departments') }}" class="theme-btn">OUR DEPARTMENTS</a>
+                        <a href="{{ url_for('contact') }}" class="theme-btn btn-dark">CONTACT US</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Appointment Section -->
+<section class="appointment_section hm-one">
+    <div class="container">
+        <div class="appointment_inner">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="appont_sec_inner">
+                        <h6>EMERGENCY</h6>
+                        <a href="#">1234567890</a>
+                        <p>Urgent cases are always seen immediately. Our AI system can provide rapid risk assessment for emergency situations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="appont_sec_inner">
+                        <h6>WORK HOURS</h6>
+                        <ul>
+                            <li>Mon - Thu...............<span>24/7 AI Available</span></li>
+                            <li>Friday.......................<span>24/7 AI Available</span></li>
+                            <li>Saturday.................<span>24/7 AI Available</span></li>
+                            <li>Sunday....................<span>24/7 AI Available</span></li>
+                            <li>Holiday....................<span>24/7 AI Available</span></li>
+                        </ul>
+                    </div>    
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="appont_sec_inner">
+                        <h6>QUICK RISK ASSESSMENT</h6>
+                        <form method="post" action="{{ url_for('quick_assessment') }}">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" name="name" placeholder="Patient Name*" required=""> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="email" name="email" placeholder="Email*" required=""> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <select name="condition" required="">
+                                            <option value="">Select Condition</option>
+                                            <option value="kidney">Kidney Disease</option>
+                                            <option value="diabetes">Diabetes</option>
+                                            <option value="heart">Heart Disease</option>
+                                            <option value="liver">Liver Disease</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="number" name="age" placeholder="Age*" required="" min="0" max="120">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                    <button class="theme-btn" type="submit" name="submit-form">START AI ASSESSMENT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments Section -->
+<section class="department_section hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>OUR <span>AI DEPARTMENTS</span></h1>
+                    <p><a href="{{ url_for('departments') }}">VIEW ALL DEPARTMENTS</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="department_inner">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('kidney_department') }}"><span class="flaticon-blood dep_icon"></span></a> 
+                        <a href="{{ url_for('kidney_department') }}"><h2>Kidney Disease</h2></a> 
+                        <p>AI-powered assessment of chronic kidney disease risk using advanced machine learning algorithms...</p>
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('diabetes_department') }}"><span class="flaticon-heart-2 dep_icon"></span></a>
+                        <a href="{{ url_for('diabetes_department') }}"><h2>Diabetes</h2></a>
+                        <p>Predictive models for diabetes risk assessment with personalized treatment recommendations...</p>
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('heart_department') }}"><span class="flaticon-heart-2 dep_icon"></span></a>
+                        <a href="{{ url_for('heart_department') }}"><h2>Heart Disease</h2></a>
+                        <p>Cardiovascular risk prediction using clinical data and advanced AI algorithms...</p>
+                    </div>
+                    <div class="department_icon_content">
+                        <a href="{{ url_for('liver_department') }}"><span class="flaticon-stomach dep_icon"></span></a>
+                        <a href="{{ url_for('liver_department') }}"><h2>Liver Disease</h2></a>
+                        <p>Liver function assessment and disease risk prediction through AI analysis...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Welcome Section -->
+<section class="welcome_section hme-one" style="background:url({{ url_for('static', filename='assets/image/welcome-hme-1-bg.jpg') }})"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="welcme_inner">
+                    <div class="heading clearfix">
+                        <h1>WELCOME TO <span>WELLORA</span></h1>
+                    </div>
+                    <h6>Our mission is to revolutionize healthcare through AI-powered risk assessment, providing healthcare professionals with the tools they need to deliver proactive, personalized care.</h6>
+                    <p>Our advanced AI system combines machine learning algorithms with clinical knowledge to analyze patient data and predict health risks before they become critical. This enables early intervention and personalized treatment plans that can significantly improve patient outcomes.</p>
+                    <ul>
+                        <li><img src="{{ url_for('static', filename='assets/image/awards-1.png') }}" class="img-fluid" alt="awards" /></li>
+                        <li><img src="{{ url_for('static', filename='assets/image/awards-2.png') }}" class="img-fluid" alt="awards" /></li>
+                        <li><img src="{{ url_for('static', filename='assets/image/awards-3.png') }}" class="img-fluid" alt="awards" /></li>
+                        <li><img src="{{ url_for('static', filename='assets/image/awards-4.png') }}" class="img-fluid" alt="awards" /></li>
+                    </ul>
+                    <a href="{{ url_for('about') }}" class="theme-btn">GET IN TOUCH</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- AI Features -->
+                <div class="ai-features">
+                    <h3>AI-Powered Features</h3>
+                    <ul class="feature-list">
+                        <li><i class="fa fa-check-circle"></i> Real-time Risk Assessment</li>
+                        <li><i class="fa fa-check-circle"></i> Multi-Condition Analysis</li>
+                        <li><i class="fa fa-check-circle"></i> Clinical Rule Integration</li>
+                        <li><i class="fa fa-check-circle"></i> Personalized Recommendations</li>
+                       
+                        <li><i class="fa fa-check-circle"></i> Bulk Patient Processing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Doctor to Community -->
+<section class="doc_community">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="doc_community_text">
+                    <h1>AI TO THE <span>COMMUNITY.</span></h1>
+                    <p>We provide comprehensive AI-powered medical risk assessment for healthcare providers and patients worldwide.</p>
+                </div>
+                <div class="mak_appointment">
+                    <a href="{{ url_for('risk_assessment') }}">START AI ASSESSMENT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonial_sec hm-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading clearfix">
+                    <h1>WHAT <span>CLIENTS SAY</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-theme two-item">
+            <div class="testimonial_content">
+                <p>"The AI risk assessment system has revolutionized how we approach patient care. It helps us identify high-risk patients early and provides actionable insights that improve outcomes."</p>
+                <div class="client_details">
+                    <img src="{{ url_for('static', filename='assets/image/test-1.png') }}" class="img-fluid" alt="test" />
+                    <div class="client_in">
+                        <h6>Dr. Sarah Johnson</h6>
+                        <span>Chief Medical Officer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial_content">
+                <p>"The accuracy and speed of the AI system is remarkable. It has become an essential tool in our clinical decision-making process, helping us provide better care to our patients."</p>
+                <div class="client_details">
+                    <img src="{{ url_for('static', filename='assets/image/test-2.png') }}" class="img-fluid" alt="test" />
+                    <div class="client_in">
+                        <h6>Dr. Michael Chen</h6>
+                        <span>Cardiologist</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-theme client-carousel">
+            <div class="item"><img src="{{ url_for('static', filename='assets/image/client/client-hm-1.jpg') }}" class="img-fluid" alt="img" /></div>
+            <div class="item"><img src="{{ url_for('static', filename='assets/image/client/client-hm-2.jpg') }}" class="img-fluid" alt="img" /></div>
+            <div class="item"><img src="{{ url_for('static', filename='assets/image/client/client-hm-3.jpg') }}" class="img-fluid" alt="img" /></div>
+            <div class="item"><img src="{{ url_for('static', filename='assets/image/client/client-hm-4.jpg') }}" class="img-fluid" alt="img" /></div>
+            <div class="item"><img src="{{ url_for('static', filename='assets/image/client/client-hm-5.jpg') }}" class="img-fluid" alt="img" /></div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- FAQ Section -->
+<div class="recent-tags hme-one" id="faqs">
+    <div class="container">
+        <section>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading">
+                                <h1>LATEST <span>ARTICLES</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="articles-outer">
+                        <div class="articles-inner">
+                            <a href="#"><img src="{{ url_for('static', filename='assets/image/articles/articles-3-3.jpg') }}" class="img-fluid" alt="articles"></a>
+                            <div class="articles-content">
+                                <p>AI Healthcare . <a href="#">December 15, 2024</a></p>
+                                <h2><a href="#">How AI is Revolutionizing Patient Risk Assessment</a></h2>
+                            </div>
+                        </div>
+                        <div class="articles-inner">
+                            <a href="#"><img src="{{ url_for('static', filename='assets/image/articles/articles-3-2.jpg') }}" class="img-fluid" alt="articles"></a>
+                            <div class="articles-content">
+                                <p>Machine Learning . <a href="#">December 10, 2024</a></p>
+                                <h2><a href="#">Predictive Models for Chronic Disease Management</a></h2>
+                            </div>
+                        </div>
+                        <div class="articles-inner">
+                            <a href="#"><img src="{{ url_for('static', filename='assets/image/articles/articles-3-1.jpg') }}" class="img-fluid" alt="articles"></a>
+                            <div class="articles-content">
+                                <p>Clinical AI . <a href="#">December 5, 2024</a></p>
+                                <h2><a href="#">Integrating AI with Clinical Decision Support Systems</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading">
+                                <h1>AI HEALTHCARE <span>FAQs</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="faq-accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How accurate is the AI risk assessment? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Our AI system achieves high accuracy rates across different medical conditions. The system combines multiple machine learning models with clinical knowledge to provide reliable risk assessments that help healthcare professionals make informed decisions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        What data is required for risk assessment? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    The system requires basic patient information such as age, gender, BMI, blood pressure, and condition-specific biomarkers. The more data available, the more accurate the assessment becomes.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Can the system handle multiple patients at once? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse fade" aria-labelledby="headingThree" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Yes, our system supports bulk assessment of multiple patients simultaneously. This feature is particularly useful for healthcare facilities that need to process large numbers of patients efficiently.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Is patient data secure? <i class="flaticon-plus main n-active"></i> <i class="flaticon-minus main active-min"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseFour" class="collapse fade" aria-labelledby="headingFour" data-parent="#faq-accordion">
+                                <div class="card-body">
+                                    Absolutely. We follow strict data security protocols and comply with healthcare data protection regulations. All patient data is encrypted and processed securely.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.ai-features {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.ai-features h3 {
+    color: #064200;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.feature-list li i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+</style>
+{% endblock %}

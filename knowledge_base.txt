@@ -1,0 +1,166 @@
+WELLORA - VOICE AGENT KNOWLEDGE BASE
+
+Purpose
+- Empower a voice agent widget to navigate the Wellora site, answer questions, and complete flows (risk assessment, viewing dashboards, contacting support) hands-free.
+
+Brand
+- Organization name: Wellora
+- Tagline: Proactive Patient Risk Advisor
+- Contact email: contact@wellora.com
+- Location label: Wellora Care Center, Medical Innovation Hub, NY
+
+Primary URLs
+- Home: /
+- Risk Assessment: /risk-assessment
+- Bulk Assessment (alias that routes to Risk Assessment): /bulk-assessment
+- Departments (overview): /departments
+- Departments detail: /departments/kidney, /departments/diabetes, /departments/heart, /departments/liver
+- Doctor Dashboard: /doctor-dashboard
+- Clinician Dashboard (opens external Dash server): /clinician-dashboard (redirects to http://localhost:8050 if running)
+- About: /about
+- Contact: /contact
+- FAQ: /faq
+- Health endpoint (liveness): /health
+
+Paths (JSON objects for client tools)
+[
+  { "name": "home", "url": "/", "aliases": ["/index.html"] },
+  { "name": "risk_assessment", "url": "/risk-assessment", "aliases": ["/risk-assessment.html"] },
+  { "name": "bulk_assessment", "url": "/bulk-assessment" },
+  { "name": "departments", "url": "/departments", "aliases": ["/departments.html"] },
+  { "name": "department_kidney", "url": "/departments/kidney" },
+  { "name": "department_diabetes", "url": "/departments/diabetes" },
+  { "name": "department_heart", "url": "/departments/heart" },
+  { "name": "department_liver", "url": "/departments/liver" },
+  { "name": "doctor_dashboard", "url": "/doctor-dashboard" },
+  { "name": "clinician_dashboard", "url": "/clinician-dashboard" },
+  { "name": "about", "url": "/about", "aliases": ["/about.html"] },
+  { "name": "contact", "url": "/contact", "aliases": ["/contact.html"] },
+  { "name": "faq", "url": "/faq", "aliases": ["/faq.html"] },
+  { "name": "health", "url": "/health" }
+]
+
+Key User Goals and Flows
+1) Quick Risk Assessment (Home)
+   - Path: Home → Quick Risk Assessment form.
+   - Fields: name (text), email (email), condition (select: kidney/diabetes/heart/liver), age (number).
+   - Submit: POST to /quick_assessment.
+   - Outcome: flash message + redirect to /risk-assessment for full details.
+
+2) Full Risk Assessment (Risk Assessment page)
+   - Tabs: Manual, JSON, Bulk.
+   - Manual fields: condition, Age, Gender (0 Female, 1 Male), BMI, SystolicBP, DiastolicBP, SerumCreatinine, Cholesterol.
+   - Manual submit: POST form to /assess_risk (multipart form fields).
+   - JSON tab: fields condition + patient_data (JSON). Submit POST to /assess_risk.
+   - Bulk tab: fields condition + bulk_data (JSON array). Submit POST to /assess_bulk_risk.
+   - Results: agent should read out risk_level (HIGH/MODERATE/LOW), risk_probability, confidence_score, matched_rules_count, recommended_actions.
+
+3) Departments
+   - Overview: /departments shows 4 conditions and feature descriptions.
+   - Detail pages: /departments/{condition} present summary, features, steps, and CTAs to risk assessment.
+
+4) Dashboards
+   - Doctor Dashboard: /doctor-dashboard
+       • KPIs: Patients Today, High Risk, Avg Probability, Completed Assessments (mocked in UI script).
+       • Charts: Risk distribution (doughnut: High/Moderate/Low), Assessments by Condition (bar: Kidney/Diabetes/Heart/Liver).
+       • Recent table: Patient ID, Condition, Risk, Probability, Confidence, Review link to /risk-assessment.
+   - Clinician Dashboard: /clinician-dashboard
+       • Starts a Dash server at http://localhost:8050 (if supported) and redirects. Agent should inform user that an external analytics dashboard opens.
+
+5) Contact
+   - Path: /contact
+   - Map title: Wellora Care Center
+   - Form fields: name, email, phone, subject (select), message.
+   - Submit: POST to /contact returns JSON {success: true} on success.
+
+Backend Endpoints (for programmatic interaction)
+- POST /assess_risk
+  Request (form or JSON):
+    • condition: kidney | diabetes | heart | liver
+    • patient_data: JSON object (when using JSON tab) OR individual fields (manual form)
+  Response JSON:
+    • risk_level: HIGH|MODERATE|LOW
+    • risk_probability: float 0..1
+    • confidence_score: float 0..1
+    • matched_rules: array of {name, explanation}
+    • matched_rules_count: integer
+    • recommended_actions: array of strings
+    • explanation: string
+
+- POST /assess_bulk_risk
+  Request (form):
+    • condition
+    • bulk_data: JSON array of patient objects
+  Response JSON: { results: [same schema as /assess_risk result] }
+
+- GET /health → { status: healthy, system: AI Healthcare System }
+
+Sample Patient Data Snippets (for JSON tab)
+- Kidney (high risk example):
+  {
+    "Age": 72, "Gender": 1, "BMI": 28.5,
+    "SystolicBP": 145, "DiastolicBP": 95,
+    "SerumCreatinine": 2.8, "eGFR": 25,
+    "ProteinInUrine": 450, "ACR": 350
+  }
+
+- Diabetes:
+  {
+    "age": 45, "gender": "Female", "bmi": 32.1,
+    "hypertension": 1, "heart_disease": 0,
+    "smoking_history": "former",
+    "HbA1c_level": 7.8, "blood_glucose_level": 180
+  }
+
+- Heart:
+  {
+    "Age": 58, "Sex": 1, "Chest pain type": 3,
+    "BP": 160, "Cholesterol": 280,
+    "FBS over 120": 1, "EKG results": 2,
+    "Max HR": 140, "Exercise angina": 1
+  }
+
+- Liver:
+  {
+    "Age of the patient": 55, "Gender of the patient": "Female",
+    "Total Bilirubin": 2.5, "Direct Bilirubin": 1.2,
+    "Alkphos Alkaline Phosphotase": 450,
+    "Sgpt Alamine Aminotransferase": 85,
+    "Sgot Aspartate Aminotransferase": 120,
+    "ALB Albumin": 2.8
+  }
+
+Voice Agent Intents (examples)
+- "Start quick assessment" → navigate /, focus quick form.
+- "Open risk assessment" → /risk-assessment (default Manual tab).
+- "Switch to JSON input" → scroll to JSON tab, set active.
+- "Run bulk assessment" → /risk-assessment, Bulk tab.
+- "Show doctor dashboard" → /doctor-dashboard.
+- "Open clinician dashboard" → /clinician-dashboard (external).
+- "Contact support" → /contact, focus form.
+- "About Wellora" → /about; "Show departments" → /departments.
+
+UI Landmarks (for DOM selection hints)
+- Quick assessment form: section.appointment_section form[action="/quick_assessment"]
+- Risk tabs: buttons with class .tab-button and tab ids #manual-tab, #json-tab, #bulk-tab
+- Results container: #results-section and #results-content (risk assessment page)
+- Doctor dashboard charts: canvas#riskDistributionChart, canvas#conditionBreakdownChart
+- Recent table body: #recentAssessmentsBody
+
+Safety and Tone
+- Use professional, empathetic medical tone.
+- Do not provide diagnoses; provide risk assessment outputs and recommend contacting a healthcare professional when appropriate.
+- Never expose personal data beyond what is provided by the user within the current session.
+
+Fallback Behavior
+- If a backend endpoint fails, inform the user and offer to retry, switch input method, or continue with sample data.
+
+Short Answers Library
+- "What does HIGH risk mean?" → Elevated probability of condition; prioritize immediate clinical review and follow-up testing.
+- "What is confidence score?" → System’s internal confidence (0–1) based on data quality and model certainty.
+- "How to reduce risk?" → Provide general, non-diagnostic guidance (e.g., follow-up with clinician, lifestyle modification, adherence to medications) and suggest contacting a provider.
+
+Last Updated
+- 2025-09-28
+
+
